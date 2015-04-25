@@ -7,8 +7,8 @@ How to Run:
 Dependencies:
 
 Group Members:
-Zach Kuzma
-Chaun "Nelson" Khor
+Zach Kuzma,
+Chuan "Nelson" Khor
 
 Contributors:
 
