@@ -11,12 +11,11 @@ struct Contact{
 
     Contact(){};
 
-    Contact(std::string name, int phone, std::string email, std::string address)
+    Contact(std::string name, int phone, std::string email)
     {
         name = inName;
         phone = inPhone;
         email = inEmail;
-        address = inAddress;
     }
 };
 
@@ -29,10 +28,10 @@ class pdirectory
         void insertContact(std::string inName);
         void deleteContact(std::string inName);
         int editContact(std::string inName);
-        Contact* findContact(std::string in_title, int *index);
+        Contact* findContact(std::string inName, int *index);
         void printDirectory();
 
-        int hashFun(std::string inName); // Create a hash function for this project
+        int hashFun(std::string inName, int hashSize); // Create a hash function for this project
 
     protected:
     private:

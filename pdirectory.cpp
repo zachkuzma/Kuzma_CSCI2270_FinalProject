@@ -1,12 +1,12 @@
-/* Author: Zach Kuzma
- * Date: April 19, 2015
- * Assignment #9
+/* Author: Zach Kuzma, Chuan 'Nelson' Khor
+    Final Project
  * Instructor: Hoenigman
  * References: TA and LAs
  * Description: Class File
  */
 
 #include <iostream>
+#include <string.h>
 #include <vector>
 #include "pdirectory.h"
 
@@ -21,6 +21,8 @@ pdirectory::pdirectory(int)
 		hashTable[i] = NULL;
 	}
 }
+
+
 virtual pdirectory::~pdirectory()
 {
 	//destructor
@@ -29,11 +31,14 @@ virtual pdirectory::~pdirectory()
 		delete &(hashTable[i]);
 	}
 }
+
+
 void pdirectory::insertContact(string name, int num, string email)
 {
-	//insert movie function
+	//insert contact function
 	bool found = false;
-	int index = hashSum(name, tableSize);
+	int index = hashFun(name, tableSize);
+
 	//check if the hash table array index has a node in the bucket
 	if(&hashTable[index] != NULL)
 	{
@@ -64,23 +69,83 @@ void pdirectory::insertContact(string name, int num, string email)
 		hashTable[index].next = NULL;
 	}
 }
+
+
 void pdirectory::deleteContact(std::string inName)
 {
-	
+
 }
+
+
 int pdirectory::editContact(std::string inName)
 {
-	
+
 }
-Contact* pdirectory::findContact(std::string in_title, int *index)
+
+
+Contact* pdirectory::findContact(std::string inName, int *index)
 {
-	
+	int index = hashFun(inName,tableSize);
+	bool found = false;
+
+	// If a node exist at this hash location.
+	if (hashTable[index] != NULL)
+	{
+		// Go through every vector index at this hash location.
+		for (int j = 0; j < hashTable[index]->size(); j++)
+		{
+			// If we find the contact in the vector, print it.
+			if ((*hashTable[index])[j].title == name)
+			{
+                cout << "Name   : "(*hashTable[index])[j].name << endl;
+                cout << "Cell   : "(*hashTable[index])[j].phone << endl;
+                cout << "Email  : "(*hashTable[index])[j].email << endl;
+				found = true;
+				break;
+			}
+		}
+	}
+	if (found == false)
+	{
+		cout << "Contact could not be found." << endl;
+	}
+	return;
 }
+
+// Print all the contacts in the directory
 void pdirectory::printDirectory()
 {
-	
+    bool empty = true;
+    for (int i = 0; i < tableSize; i++)
+    {
+        if (hashTable[i] != NULL)
+        {
+            for (int j = 0; j < hashTable[i]->size(); j++)
+            {
+                cout << "(" << i << ")" << endl;
+                cout << "Name   : "(*hashTable[i])[j].name << endl;
+                cout << "Cell   : "(*hashTable[i])[j].phone << endl;
+                cout << "Email  : "(*hashTable[i])[j].email << endl;
+                cout << " " << endl;
+                empty = false;
+            }
+        }
+    }
+    if (empty == true)
+		cout << "No contact found in the directory. << endl;
+	return;
 }
-int pdirectory::hashFun(std::string inName)
+
+
+// Hash Sum function for the contact's name
+int pdirectory::hashFun(std::string inName, int hashSize)
 {
-	
+    int theSum = 0;
+    for (int i = 1; i < inName.length(); i++)
+    {
+        // ASCII value for each of the char in the string
+        theSum = theSum + inName[i];
+    }
+    theSum = theSum % hashSize;
+    return theSum;
 }
