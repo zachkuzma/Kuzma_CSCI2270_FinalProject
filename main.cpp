@@ -24,7 +24,7 @@
 	ifstream in;
 	in.open(line);
 	
-	pdirectory *directory = new pdirectory();
+	pdirectory *directory;
 	
 	//creation of tree
 	while(getline(in, line))
@@ -40,7 +40,7 @@
 		string number = second;
 		string email = third;
 		
-		directory->insertContact(name, number, email);
+		//directory->insertContact(name, number, email);
 	}
 	 
      // Initialize a variable for user's command
@@ -48,6 +48,11 @@
 
      // Flag for existing menu
      bool quit = false;
+     
+     //Input variables
+     string input1;
+     string input2;
+     string input3;
 
      while(quit != true)
      {
@@ -60,12 +65,30 @@
          switch(userInput)
          {
             case 1: // Print the phone directory
+				directory->printDirectory();
                 break;
             case 2: // Find contact
+				cout << "Enter Full Name of Contact: " << endl;
+				getline(cin,input1);
+				directory->findContact(input1);
                 break;
             case 3: // New contact
+				cout << "Enter Full Name of Contact: " << endl;
+				getline(cin,input1);
+				cout << "Enter Phone Number of Contact: " << endl;
+				getline(cin,input2);
+				cout << "Enter Email Address of Contact: " << endl;
+				getline(cin,input3);
+				directory->insertContact(input1,input2,input3);
                 break;
             case 4: // Edit contact
+				cout << "Enter Full Name of Contact: " << endl;
+				getline(cin,input1);
+				cout << "Enter Phone Number of Contact: " << endl;
+				getline(cin,input2);
+				cout << "Enter Email Address of Contact: " << endl;
+				getline(cin,input3);
+				directory->editContact(input1,input2,input3);
                 break;
             case 5: // Delete contact
                 break;
@@ -95,7 +118,7 @@
      cout << "Select one of the following option:" << endl;
      cout << " (1) Print current phone directory" << endl;
      cout << " (2) Find contact information" << endl;
-     cout << " (3) Write a new contact" << endl;
+     cout << " (3) Create a new contact" << endl;
      cout << " (4) Edit a current contact's information" << endl;
      cout << " (5) Delete a current contact" << endl;
      cout << " (6) Export a copy of the contact" << endl;
