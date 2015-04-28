@@ -116,23 +116,25 @@ Contact* pdirectory::findContact(std::string inName, int *index)
 void pdirectory::printDirectory()
 {
     bool empty = true;
+    int k = 1;
     for (int i = 0; i < tableSize; i++)
     {
         if (hashTable[i] != NULL)
         {
             for (int j = 0; j < hashTable[i]->size(); j++)
             {
-                cout << "(" << i << ")" << endl;
+                cout << "(" << k << ")" << endl;
                 cout << "Name   : "(*hashTable[i])[j].name << endl;
                 cout << "Cell   : "(*hashTable[i])[j].phone << endl;
                 cout << "Email  : "(*hashTable[i])[j].email << endl;
                 cout << " " << endl;
                 empty = false;
+                k++;
             }
         }
     }
     if (empty == true)
-		cout << "No contact found in the directory. << endl;
+		cout << "No contact found in the directory." << endl;
 	return;
 }
 
@@ -141,7 +143,7 @@ void pdirectory::printDirectory()
 int pdirectory::hashFun(std::string inName, int hashSize)
 {
     int theSum = 0;
-    for (int i = 1; i < inName.length(); i++)
+    for (int i = 0; i < inName.length(); i++)
     {
         // ASCII value for each of the char in the string
         theSum = theSum + inName[i];

@@ -7,7 +7,7 @@
 
  #include <iostream>
  #include <fstream>
- #include <stdlin.h>
+
  #include <string>
  #include <vector>
  #include "pdirectory.h"
@@ -43,17 +43,18 @@
             case 4: // Edit contact
                 break;
             case 5: // Delete contact
-                break
+                break;
             case 6: // Export current contact
-                break
+                break;
             case 7: // Quit
+                cout << " " << endl;
                 cout << "Closing Directory. See you again!" << endl;
                 quit = true;
                 break;
 
             default:
                 cout << "Invalid Input." << endl;
-                cin.clear()
+                cin.clear();
                 cin.ignore(10000,'\n');
                 break;
          }
@@ -74,6 +75,7 @@
      cout << " (5) Delete a current contact" << endl;
      cout << " (6) Export a copy of the contact" << endl;
      cout << " (7) Quit the program" << endl;
+     cout << "******************************" << endl;
      cout << " " << endl;
      cout << " Your command: " ;
      return;

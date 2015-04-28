@@ -5,13 +5,12 @@ struct Contact{
     std::string name;
     int phone;
     std::string email;
-    std::string address;
     Contact *next;
     Contact *prev;
 
     Contact(){};
 
-    Contact(std::string name, int phone, std::string email)
+    Contact(std::string inName, int inPhone, std::string inEmail)
     {
         name = inName;
         phone = inPhone;
