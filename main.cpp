@@ -1,14 +1,15 @@
 /* Author: Zach Kuzma, Chuan 'Nelson' Khor
-    Final Project
+ * Final Project
  * Instructor: Hoenigman
- * References: TA and LAs
+ * References:
  * Description: Main.cpp File
  */
 
  #include <iostream>
  #include <fstream>
-
  #include <string>
+ #include <sstream>
+ #include <stdlib.h> 
  #include <vector>
  #include "pdirectory.h"
 
@@ -16,8 +17,32 @@
 
  void displayMenu();
 
- int main()
+ int main(int argc, char*argv[])
  {
+	//import of current contacts
+	string line = argv[1];
+	ifstream in;
+	in.open(line);
+	
+	pdirectory *directory = new pdirectory();
+	
+	//creation of tree
+	while(getline(in, line))
+	{
+		stringstream iss(line);
+		string first;
+		getline(iss, first, ',');
+		string second;
+		getline(iss, second, ',');
+		string third;
+		getline(iss, third);
+		string name = first;
+		string number = second;
+		string email = third;
+		
+		directory->insertContact(name, number, email);
+	}
+	 
      // Initialize a variable for user's command
      int userInput;
 

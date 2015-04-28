@@ -1,16 +1,21 @@
+/* Author: Zach Kuzma, Chuan 'Nelson' Khor
+ * Final Project
+ * Instructor: Hoenigman
+ * References:
+ * Description: Header File
+ */
+
 #ifndef PDIRECTORY_H
 #define PDIRECTORY_H
 
 struct Contact{
     std::string name;
-    int phone;
+    std::string phone;
     std::string email;
-    Contact *next;
-    Contact *prev;
 
     Contact(){};
 
-    Contact(std::string inName, int inPhone, std::string inEmail)
+    Contact(std::string inName, std::string inPhone, std::string inEmail)
     {
         name = inName;
         phone = inPhone;
@@ -22,19 +27,17 @@ struct Contact{
 class pdirectory
 {
     public:
-        pdirectory(int);
-        virtual ~pdirectory();
-        void insertContact(std::string inName);
+        pdirectory();
+        ~pdirectory();
+        void insertContact(std::string inName, std::string inNum, std::string inEmail);
         void deleteContact(std::string inName);
-        int editContact(std::string inName);
-        Contact* findContact(std::string inName, int *index);
+        void editContact(std::string inName);
+        void findContact(std::string inName);
         void printDirectory();
-
-        int hashFun(std::string inName, int hashSize); // Create a hash function for this project
-
-    protected:
+        int hashFun(std::string inName, int hashSize); // Create a hash sum function for this project
     private:
-        Contact *hashTable;
+        int hashSize = 10;
+        std::vector<Contact> *hashTable[10] = { NULL };
 };
 
 #endif // PDIRECTORY_H
