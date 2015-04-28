@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <fstream>
 #include <string.h>
 #include <vector>
 #include "pdirectory.h"
@@ -14,7 +15,7 @@ using namespace std;
 
 pdirectory::pdirectory()
 {
-
+	//constructor
 }
 
 
@@ -57,12 +58,19 @@ void pdirectory::insertContact(string name, string num, string email)
 {
 	//insert contact function
 	int index = hashFun(name, hashSize);
+	
+	cout << "a" << endl;
 
 	//check to see if there is something in the bucket
-	if (hashTable[index] == NULL)
+	if (hashTable[index] != NULL)
 	{
+		cout << "b" << endl;
 		hashTable[index] = new vector<Contact>;
-		hashTable[index]->push_back(Contact(name,num,email));
+		hashTable[index]->insert(hashTable[index]->begin(), Contact(name,num,email));
+		/*hashTable[index]->name->push_back(name);
+		hashTable[index]->phone->push_back(num);
+		hashTable[index]->email->push_back(email);*/
+		cout << "c" << endl;
 	}
 	//add to an existing bucket with vectors
 	else
@@ -301,6 +309,23 @@ int pdirectory::hashFun(std::string inName, int hashSize)
 void pdirectory::exportDirectory()
 {
 	//function to create a new text file with the updated directory
-	//code to be added later
+	ofstream outfile;
+	outfile.open("UpdatedDirectory.txt");
+	//write to the open file
+	bool empty = true;
+    for (int i = 0; i < hashSize; i++)
+    {
+        if (hashTable[i] != NULL)
+        {
+            for (int j = 0; j < hashTable[i]->size(); j++)
+            {
+                //outfile >> (*hashTable[i])[j].name >> "," >> (*hashTable[i])[j].phone >> "," >> (*hashTable[i])[j].email << endl;
+                empty = false;
+            }
+        }
+    }
+    if (empty == true)
+		cout << "No contact found in the directory." << endl;
+	outfile.close();
 }
 

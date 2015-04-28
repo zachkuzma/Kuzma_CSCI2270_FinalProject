@@ -26,7 +26,7 @@
 	
 	pdirectory *directory;
 	
-	//creation of tree
+	//creation of directory
 	while(getline(in, line))
 	{
 		stringstream iss(line);
@@ -40,8 +40,10 @@
 		string number = second;
 		string email = third;
 		
-		//directory->insertContact(name, number, email);
+		directory->insertContact(name, number, email);
 	}
+	
+	//directory->insertContact("Zach Kuzma", "7192099009", "zach@yahoo.com");
 	 
      // Initialize a variable for user's command
      int userInput;
@@ -91,8 +93,12 @@
 				directory->editContact(input1,input2,input3);
                 break;
             case 5: // Delete contact
+				cout << "Enter Full Name of Contact: " << endl;
+				getline(cin,input1);
+				directory->deleteContact(input1); 
                 break;
             case 6: // Export current contact
+				directory->exportDirectory();
                 break;
             case 7: // Quit
                 cout << " " << endl;
