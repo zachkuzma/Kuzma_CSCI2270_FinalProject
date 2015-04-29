@@ -39,6 +39,7 @@ class pdirectory
     private:
         int hashSize = 10;
         std::vector<Contact> *hashTable[10] = { NULL };
+
 };
 
 #endif // PDIRECTORY_H

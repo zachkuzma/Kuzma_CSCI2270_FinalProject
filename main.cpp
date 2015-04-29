@@ -20,11 +20,12 @@
  int main(int argc, char*argv[])
  {
 	//import of current contacts
-	string line = argv[1];
+	//string line = argv[1];
+	string line = "CurrentDirectory.txt";
 	ifstream in;
 	in.open(line);
 	
-	pdirectory *directory;
+	pdirectory directory;
 	
 	//creation of directory
 	while(getline(in, line))
@@ -40,10 +41,10 @@
 		string number = second;
 		string email = third;
 		
-		directory->insertContact(name, number, email);
+		directory.insertContact(name, number, email);
 	}
 	
-	//directory->insertContact("Zach Kuzma", "7192099009", "zach@yahoo.com");
+	//directory->insertContact("Zach Kuzma", "7192099009", "zach@4343yahoo.com");
 	 
      // Initialize a variable for user's command
      int userInput;
@@ -67,12 +68,12 @@
          switch(userInput)
          {
             case 1: // Print the phone directory
-				directory->printDirectory();
+				directory.printDirectory();
                 break;
             case 2: // Find contact
 				cout << "Enter Full Name of Contact: " << endl;
 				getline(cin,input1);
-				directory->findContact(input1);
+				directory.findContact(input1);
                 break;
             case 3: // New contact
 				cout << "Enter Full Name of Contact: " << endl;
@@ -81,7 +82,7 @@
 				getline(cin,input2);
 				cout << "Enter Email Address of Contact: " << endl;
 				getline(cin,input3);
-				directory->insertContact(input1,input2,input3);
+				directory.insertContact(input1,input2,input3);
                 break;
             case 4: // Edit contact
 				cout << "Enter Full Name of Contact: " << endl;
@@ -90,15 +91,15 @@
 				getline(cin,input2);
 				cout << "Enter Email Address of Contact: " << endl;
 				getline(cin,input3);
-				directory->editContact(input1,input2,input3);
+				directory.editContact(input1,input2,input3);
                 break;
             case 5: // Delete contact
 				cout << "Enter Full Name of Contact: " << endl;
 				getline(cin,input1);
-				directory->deleteContact(input1); 
+				directory.deleteContact(input1); 
                 break;
             case 6: // Export current contact
-				directory->exportDirectory();
+				directory.exportDirectory();
                 break;
             case 7: // Quit
                 cout << " " << endl;

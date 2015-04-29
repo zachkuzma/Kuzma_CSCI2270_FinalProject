@@ -57,16 +57,16 @@ and/or added to the hashtable.
 void pdirectory::insertContact(string name, string num, string email)
 {
 	//insert contact function
-	int index = hashFun(name, hashSize);
-	
-	cout << "a" << endl;
+	int index = hashFun(name, 10);
+	cout << index <<endl;
+	//cout << "a" << endl;
 
 	//check to see if there is something in the bucket
-	if (hashTable[index] != NULL)
+	if (hashTable[index] == NULL)
 	{
-		cout << "b" << endl;
+		//cout << "b" << endl;
 		hashTable[index] = new vector<Contact>;
-		hashTable[index]->insert(hashTable[index]->begin(), Contact(name,num,email));
+		hashTable[index]->push_back(Contact(name,num,email));
 		/*hashTable[index]->name->push_back(name);
 		hashTable[index]->phone->push_back(num);
 		hashTable[index]->email->push_back(email);*/
@@ -77,15 +77,11 @@ void pdirectory::insertContact(string name, string num, string email)
 	{
 		for (int i = 0; i < hashTable[index]->size(); i++)
 		{
-			if ((*hashTable[index])[i].name == name)
-			{
-				cout << "duplicate" << endl;
-				return;
-			}
-
 			if(name.compare((*hashTable[index])[i].name) < 0)
 			{
 				(hashTable[index])[i].insert(hashTable[index]->begin() + i, Contact(name,num,email));
+				//hashTable[index]->push_back(Contact(name,num,email));
+				cout << "d"<< endl;
 			}
 		}
 		hashTable[index]->push_back(Contact(name,num,email));
