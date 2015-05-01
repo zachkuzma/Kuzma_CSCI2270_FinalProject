@@ -20,8 +20,7 @@
  int main(int argc, char*argv[])
  {
 	//import of current contacts
-	//string line = argv[1];
-	string line = "CurrentDirectory.txt";
+	string line = argv[1];
 	ifstream in;
 	in.open(line);
 	
@@ -31,20 +30,17 @@
 	while(getline(in, line))
 	{
 		stringstream iss(line);
-		string first;
-		getline(iss, first, ',');
-		string second;
-		getline(iss, second, ',');
-		string third;
-		getline(iss, third);
-		string name = first;
-		string number = second;
-		string email = third;
+		string name;
+		getline(iss, name, ',');
+		string number;
+		getline(iss, number, ',');
+		string email;
+		getline(iss, email);
 		
 		directory.insertContact(name, number, email);
 	}
 	
-	//directory->insertContact("Zach Kuzma", "7192099009", "zach@4343yahoo.com");
+	//directory.insertContact("Zach Kuzma", "7192099009", "zach@4343yahoo.com");
 	 
      // Initialize a variable for user's command
      int userInput;

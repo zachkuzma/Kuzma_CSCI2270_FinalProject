@@ -13,12 +13,43 @@
 
 using namespace std;
 
+/*
+Function prototype:
+pdirectory::pdirectory()
+
+Function description:
+This function is a constructor for the class pdirectory.
+
+Example:
+pdirectory directory = new pdirectory();
+
+Pre-condition: None
+
+Post-condition: Construction of the class pdirectory
+*/
 pdirectory::pdirectory()
 {
 	//constructor
 }
 
+/*
+Function prototype:
+pdirectory::~pdirectory()
 
+Function description:
+This function when called will delete all the contacts of the hash table
+and free the used memory throughout the program.
+
+Example:
+pdirectory directory;
+directory->~pdirectory();
+
+Pre-condition: The hashTable should have contents in the array positions
+that need to be deleted when the program ends.
+
+Post-condition: The memory will be deleted and freed after the program 
+has ended.
+*/
 pdirectory::~pdirectory()
 {
 	//destructor
@@ -43,8 +74,8 @@ in the index, then the function will insert the new information alphabetically
 into the vector.
 
 Example:
-pdirectory *directory;
-directory->insertContact("Zach Kuzma", "(123)456-7890", "zach@yahoo.com");
+pdirectory directory;
+directory.insertContact("Zach Kuzma", "(123)456-7890", "zach@yahoo.com");
 
 Pre-condition: The inputs include the name, phone number, and email to
 find the correct location to store the contact based on the name from
@@ -58,35 +89,38 @@ void pdirectory::insertContact(string name, string num, string email)
 {
 	//insert contact function
 	int index = hashFun(name, 10);
-	cout << index <<endl;
+	//vector<Contact>::iterator it = hashTable[index]->begin();
+	//cout << index <<endl;
 	//cout << "a" << endl;
+	
+	hashTable[index] = new vector<Contact>;
+	hashTable[index]->push_back(Contact(name,num,email));
 
 	//check to see if there is something in the bucket
+	/*
 	if (hashTable[index] == NULL)
 	{
 		//cout << "b" << endl;
 		hashTable[index] = new vector<Contact>;
 		hashTable[index]->push_back(Contact(name,num,email));
-		/*hashTable[index]->name->push_back(name);
-		hashTable[index]->phone->push_back(num);
-		hashTable[index]->email->push_back(email);*/
 		cout << "c" << endl;
-	}
+	}*/
 	//add to an existing bucket with vectors
+	/*
 	else
 	{
 		for (int i = 0; i < hashTable[index]->size(); i++)
 		{
 			if(name.compare((*hashTable[index])[i].name) < 0)
 			{
-				(hashTable[index])[i].insert(hashTable[index]->begin() + i, Contact(name,num,email));
+				(hashTable[index])->insert(it+i, Contact(name,num,email));
 				//hashTable[index]->push_back(Contact(name,num,email));
 				cout << "d"<< endl;
 			}
 		}
 		hashTable[index]->push_back(Contact(name,num,email));
 	}
-
+	*/
 }
 
 /*
@@ -101,8 +135,8 @@ only contact in the index, then there is a condition to reinitialize the
 index to NULL.
 
 Example:
-pdirectory *directory;
-directory->deleteContant("Zach Kuzma");
+pdirectory directory;
+directory.deleteContant("Zach Kuzma");
 
 Pre-condition: The unused locations in the hashtable vector are filled
 with NULL to begin. Contacts are stored by a calculated hash code from
@@ -151,14 +185,14 @@ Function description:
 This function will give the user the option to change one of the information
 in the contact: name, phone, and/or email. This function will first search
 for the contact that the user desired to edit, which is very similar to the
-    methods used in the function findContact. Once the contact is found, an
-    editing menu will be displayed to the user in order to select the information
-    that he wanted to change. Only changing the name of the contact will result
-    in recalculating the hash code and relocating the contact. The menu for
-    editing will keep showing until the user is happy with the result.
+methods used in the function findContact. Once the contact is found, an
+editing menu will be displayed to the user in order to select the information
+that he wanted to change. Only changing the name of the contact will result
+in recalculating the hash code and relocating the contact. The menu for
+editing will keep showing until the user is happy with the result.
 
 Example:
-editContact("Ammy") // need to be change to Amy
+editContact("Amy") 
 
 Pre-conditions:
 InName is the valid ASCII string and the desired contact that need to be edited
@@ -280,8 +314,8 @@ the ASCII values of each elemetns of the string and mod (%) the sum by
 the size of the given hash table.
 
 Example:
-HashTable ht
-int hashCode = ht.hashFun("Amy", 10)
+pdirectory directory
+int hashCode = directory.hashFun("Amy", 10)
 
 Pre-conditions:
 InName is the valid ASCII string. Integer of hashSize is > 0.
@@ -302,6 +336,29 @@ int pdirectory::hashFun(std::string inName, int hashSize)
     return theSum;
 }
 
+/*
+Function prototype:
+void pdirectory::exportDirectory()
+
+Function description:
+This function when called will create a file that contains all the 
+new and updated contacts.  It will write to a file named
+"UpdatedDirectory.txt" with all the contacts in the hashTable 
+at the time the function is called.
+
+Example:
+pdirectory directory;
+directory.exportDirectory()
+
+Pre-conditions:
+HashTable containing either some contents or no contents at all.
+
+Post-conditions:
+If the hashTable is empty the function will alert the user with a 
+message saying there were no contacts found in the directory.
+If the hashTable has contents then the contents will be copied to an
+outfile similar to the formatting of the imported file
+*/
 void pdirectory::exportDirectory()
 {
 	//function to create a new text file with the updated directory
@@ -321,7 +378,7 @@ void pdirectory::exportDirectory()
         }
     }
     if (empty == true)
-		cout << "No contact found in the directory." << endl;
+		cout << "No contacts found in the directory." << endl;
 	outfile.close();
 }
 
