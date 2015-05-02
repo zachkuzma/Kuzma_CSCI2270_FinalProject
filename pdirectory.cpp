@@ -47,7 +47,7 @@ directory->~pdirectory();
 Pre-condition: The hashTable should have contents in the array positions
 that need to be deleted when the program ends.
 
-Post-condition: The memory will be deleted and freed after the program 
+Post-condition: The memory will be deleted and freed after the program
 has ended.
 */
 pdirectory::~pdirectory()
@@ -89,38 +89,36 @@ void pdirectory::insertContact(string name, string num, string email)
 {
 	//insert contact function
 	int index = hashFun(name, 10);
-	//vector<Contact>::iterator it = hashTable[index]->begin();
-	//cout << index <<endl;
-	//cout << "a" << endl;
-	
-	hashTable[index] = new vector<Contact>;
-	hashTable[index]->push_back(Contact(name,num,email));
 
 	//check to see if there is something in the bucket
-	/*
 	if (hashTable[index] == NULL)
 	{
-		//cout << "b" << endl;
 		hashTable[index] = new vector<Contact>;
 		hashTable[index]->push_back(Contact(name,num,email));
-		cout << "c" << endl;
-	}*/
+	}
 	//add to an existing bucket with vectors
-	/*
 	else
 	{
-		for (int i = 0; i < hashTable[index]->size(); i++)
+		// Notice now how we looo until and INCLUDING the size of the vector.
+		for (int i = 0; i <= hashTable[index]->size(); i++)
 		{
-			if(name.compare((*hashTable[index])[i].name) < 0)
+			// And then we insert when the name comes before the Contact at index i in
+			// the vector OR once we reach the end of the vector. Once we reach the
+			// end, i will be equal to the size of the vector. Thus, if we try to
+			// insert at index i, it will insert at the very end of the vector as if
+			// push_back were used.
+			if(i == hashTable[index]->size() || name.compare((*hashTable[index])[i].name) < 0)
 			{
-				(hashTable[index])->insert(it+i, Contact(name,num,email));
-				//hashTable[index]->push_back(Contact(name,num,email));
-				cout << "d"<< endl;
+				// We insert at index i by adding it to the begin iterator of the vector
+				// Think about iterators as fancy poitners and by adding numbers to them
+				// we can just do fancy pointer arithmetic.
+				hashTable[index]->insert(hashTable[index]->begin() + i, Contact(name,num,email));
+				// We also want to break out of the for loop since there's no need to
+				// continue searching for a spot to insert the contact
+				break;
 			}
 		}
-		hashTable[index]->push_back(Contact(name,num,email));
 	}
-	*/
 }
 
 /*
@@ -192,7 +190,7 @@ in recalculating the hash code and relocating the contact. The menu for
 editing will keep showing until the user is happy with the result.
 
 Example:
-editContact("Amy") 
+editContact("Amy")
 
 Pre-conditions:
 InName is the valid ASCII string and the desired contact that need to be edited
@@ -341,9 +339,9 @@ Function prototype:
 void pdirectory::exportDirectory()
 
 Function description:
-This function when called will create a file that contains all the 
+This function when called will create a file that contains all the
 new and updated contacts.  It will write to a file named
-"UpdatedDirectory.txt" with all the contacts in the hashTable 
+"UpdatedDirectory.txt" with all the contacts in the hashTable
 at the time the function is called.
 
 Example:
@@ -354,7 +352,7 @@ Pre-conditions:
 HashTable containing either some contents or no contents at all.
 
 Post-conditions:
-If the hashTable is empty the function will alert the user with a 
+If the hashTable is empty the function will alert the user with a
 message saying there were no contacts found in the directory.
 If the hashTable has contents then the contents will be copied to an
 outfile similar to the formatting of the imported file
@@ -381,4 +379,3 @@ void pdirectory::exportDirectory()
 		cout << "No contacts found in the directory." << endl;
 	outfile.close();
 }
-
