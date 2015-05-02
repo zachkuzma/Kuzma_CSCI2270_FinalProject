@@ -9,7 +9,7 @@
 - Exporting the Updated Directory
 - Exiting the Program
 
-## How to Run
+## How to Run (with Geany)
 To run this program, the user will first need to compile the `main.cpp` and `pdirectory.cpp` in the command line:
 
 ```
@@ -45,5 +45,9 @@ Press the desired number from the menu for which you want the program to perform
 - problem seems to maybe arise in the initialization of the hashtable
 - somewhere.
 - Alternate ideas of how to structure our edit function.
-- Help with the outfile for the updated directory in the `exportDirectory`
+- [Update 5/1] We have come up with a simple solution for the insert function. 
+- [Update 5/1] We have decided to use insertion sort to sort the collided contacts alphabatically 
+- instead of vector's iterator since we don't really know how to impliment it. Suggestions to make
+- it better are still welcomed.
+- We still need help with the outfile for the updated directory in the `exportDirectory`
 - function.
