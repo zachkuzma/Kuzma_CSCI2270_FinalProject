@@ -197,7 +197,7 @@ Print/cout the name, phone number, and the email of the newly edited.
 If the desired contact is not in the directory, it will display the contact
 couldn't be found.
 */
-void pdirectory::editContact(string name, string num, string email)
+void pdirectory::editContact(string name, string num, string email, string newname)
 {
 	int index = hashFun(name,hashSize);
 
@@ -210,6 +210,7 @@ void pdirectory::editContact(string name, string num, string email)
 			// If we find the contact in the vector, print it.
 			if ((*hashTable[index])[i].name == name)
 			{
+				(*hashTable[index])[i].name = newname;
 				(*hashTable[index])[i].phone = num;
 				(*hashTable[index])[i].email = email;
 				return; //So the for loop doesn't keep traversing once it's found
