@@ -29,6 +29,8 @@ Follow the prompts as indicated by the program.
 Press the desired number from the menu for which you want the program to perform.
 
 ## Dependencies
+N/A
+
 ## Group Members
 - Zach Kuzma,
 - Chuan "Nelson" Khor
