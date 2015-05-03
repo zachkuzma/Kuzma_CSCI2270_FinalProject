@@ -41,5 +41,4 @@ Press the desired number from the menu for which you want the program to perform
 
 
 ## Open Issues/Bugs:
-- Needs ideas for a couple more functions.
-- The deleteContact function cannot delete any of the newly added contacts and/or chained contacts.
+- Everything is working perfectly. Thank you for the contributions!
