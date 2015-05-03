@@ -34,9 +34,10 @@ Press the desired number from the menu for which you want the program to perform
 - Chuan "Nelson" Khor
 
 ## Contributors:
-- TA Matthew Bubernak,
-- Past Assignments posted by Prof. Hoenigman,
-- Stack Overflow examples
+- TA Matthew Bubernak & Prof. Hoenigman,
+- bericp1
+- austinholler
+
 
 ## Open Issues/Bugs:
 - Needs ideas for a couple more functions.
