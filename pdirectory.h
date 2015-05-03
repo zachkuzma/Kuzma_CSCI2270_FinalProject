@@ -31,7 +31,7 @@ class pdirectory
         ~pdirectory();
         void insertContact(std::string inName, std::string inNum, std::string inEmail);
         void deleteContact(std::string inName);
-        void editContact(std::string inName, std::string inNum, std::string inEmail);
+        void editContact(std::string inName, std::string inNum, std::string inEmail, std::string newname);
         void findContact(std::string inName);
         void printDirectory();
         int hashFun(std::string inName, int hashSize); // Create a hash sum function for this project

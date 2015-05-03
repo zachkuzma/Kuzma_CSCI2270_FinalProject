@@ -52,6 +52,7 @@
      string input1;
      string input2;
      string input3;
+     string input4;
 
      while(quit != true)
      {
@@ -83,11 +84,13 @@
             case 4: // Edit contact
 				cout << "Enter Full Name of Contact: " << endl;
 				getline(cin,input1);
-				cout << "Enter Phone Number of Contact: " << endl;
+				cout << "Enter New Name of Contact: " << endl;
+				getline(cin,input4);
+				cout << "Enter New Phone Number of Contact: " << endl;
 				getline(cin,input2);
-				cout << "Enter Email Address of Contact: " << endl;
+				cout << "Enter New Email Address of Contact: " << endl;
 				getline(cin,input3);
-				directory.editContact(input1,input2,input3);
+				directory.editContact(input1,input2,input3,input4);
                 break;
             case 5: // Delete contact
 				cout << "Enter Full Name of Contact: " << endl;
