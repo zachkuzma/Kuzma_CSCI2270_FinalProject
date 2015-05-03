@@ -92,10 +92,8 @@ void pdirectory::insertContact(string name, string num, string email)
 	//vector<Contact>::iterator it = hashTable[index]->begin();
 	//cout << index <<endl;
 	//cout << "a" << endl;
-	
-	hashTable[index] = new vector<Contact>;
-	hashTable[index]->push_back(Contact(name,num,email));
-
+		hashTable[index] = new vector<Contact>;
+		hashTable[index]->push_back(Contact(name,num,email));
 	//check to see if there is something in the bucket
 	/*
 	if (hashTable[index] == NULL)
@@ -148,7 +146,6 @@ Post-condition: Contact deleted from the vector and memory is freed.
 void pdirectory::deleteContact(std::string inName)
 {
 	int index = hashFun(inName,hashSize);
-	bool found = false;
 
 	// If a node exist at this hash location.
 	if (hashTable[index] != NULL)
@@ -160,21 +157,19 @@ void pdirectory::deleteContact(std::string inName)
 			if ((*hashTable[index])[i].name == inName)
 			{
 				hashTable[index]->erase(hashTable[index]->begin() + i);
-                found = true;
+						// If this was the last element in this chain, delete the vector.
+				if (hashTable[index]->size() == 0)
+				{
+					delete hashTable[index];
+					hashTable[index] = NULL;
+				}
+				
+				return; //So it exits the function once its deleted the contact
 			}
 		}
-		// If this was the last element in this chain, delete the vector.
-		if (hashTable[index]->size() == 0)
-		{
-			delete hashTable[index];
-			hashTable[index] = NULL;
-		}
 	}
-	// If the contact could not be found
-	if (found == false)
-	{
-		cout << "Contact could not be found." << endl;
-	}
+	
+	cout << "Contact could not be found." << endl;
 }
 
 /*
@@ -204,8 +199,25 @@ couldn't be found.
 */
 void pdirectory::editContact(string name, string num, string email)
 {
-	deleteContact(name);
-	insertContact(name, num, email);
+	int index = hashFun(name,hashSize);
+
+	// If a node exist at this hash location.
+	if (hashTable[index] != NULL)
+	{
+		// Go through every vector index at this hash location.
+		for (int i = 0; i < hashTable[index]->size(); i++)
+		{
+			// If we find the contact in the vector, print it.
+			if ((*hashTable[index])[i].name == name)
+			{
+				(*hashTable[index])[i].phone = num;
+				(*hashTable[index])[i].email = email;
+				return; //So the for loop doesn't keep traversing once it's found
+			}
+		}
+	}
+	
+	cout << "Contact could not be found." << endl;
 }
 
 /*
@@ -249,14 +261,12 @@ void pdirectory::findContact(string inName)
                 cout << "Name   : "<< (*hashTable[index])[i].name << endl;
                 cout << "Phone  : "<< (*hashTable[index])[i].phone << endl;
                 cout << "Email  : "<< (*hashTable[index])[i].email << endl;
-				found = true;
+				return; //So the for loop doesn't keep traversing once it's found
 			}
 		}
 	}
-	if (found == false)
-	{
-		cout << "Contact could not be found." << endl;
-	}
+	
+	cout << "Contact could not be found." << endl;
 }
 
 /*
@@ -372,13 +382,18 @@ void pdirectory::exportDirectory()
         {
             for (int j = 0; j < hashTable[i]->size(); j++)
             {
-                //outfile >> (*hashTable[i])[j].name >> "," >> (*hashTable[i])[j].phone >> "," >> (*hashTable[i])[j].email << endl;
-                empty = false;
+				//The arrows were just going the wrong way
+				//Since you're putting into the fille it's like output
+                outfile << (*hashTable[i])[j].name << "," << (*hashTable[i])[j].phone << "," << (*hashTable[i])[j].email << endl;
             }
+            
+            empty = false;
         }
     }
     if (empty == true)
+    {
 		cout << "No contacts found in the directory." << endl;
+	}
 	outfile.close();
 }
 
