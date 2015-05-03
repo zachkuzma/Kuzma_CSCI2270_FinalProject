@@ -146,7 +146,6 @@ Post-condition: Contact deleted from the vector and memory is freed.
 void pdirectory::deleteContact(std::string inName)
 {
 	int index = hashFun(inName,hashSize);
-	bool found = false;
 
 	// If a node exist at this hash location.
 	if (hashTable[index] != NULL)
@@ -158,21 +157,19 @@ void pdirectory::deleteContact(std::string inName)
 			if ((*hashTable[index])[i].name == inName)
 			{
 				hashTable[index]->erase(hashTable[index]->begin() + i);
-                found = true;
+						// If this was the last element in this chain, delete the vector.
+				if (hashTable[index]->size() == 0)
+				{
+					delete hashTable[index];
+					hashTable[index] = NULL;
+				}
+				
+				return; //So it exits the function once its deleted the contact
 			}
 		}
-		// If this was the last element in this chain, delete the vector.
-		if (hashTable[index]->size() == 0)
-		{
-			delete hashTable[index];
-			hashTable[index] = NULL;
-		}
 	}
-	// If the contact could not be found
-	if (found == false)
-	{
-		cout << "Contact could not be found." << endl;
-	}
+	
+	cout << "Contact could not be found." << endl;
 }
 
 /*
@@ -190,7 +187,7 @@ in recalculating the hash code and relocating the contact. The menu for
 editing will keep showing until the user is happy with the result.
 
 Example:
-editContact("Amy")
+editContact("Amy") 
 
 Pre-conditions:
 InName is the valid ASCII string and the desired contact that need to be edited
@@ -202,8 +199,25 @@ couldn't be found.
 */
 void pdirectory::editContact(string name, string num, string email)
 {
-	deleteContact(name);
-	insertContact(name, num, email);
+	int index = hashFun(name,hashSize);
+
+	// If a node exist at this hash location.
+	if (hashTable[index] != NULL)
+	{
+		// Go through every vector index at this hash location.
+		for (int i = 0; i < hashTable[index]->size(); i++)
+		{
+			// If we find the contact in the vector, print it.
+			if ((*hashTable[index])[i].name == name)
+			{
+				(*hashTable[index])[i].phone = num;
+				(*hashTable[index])[i].email = email;
+				return; //So the for loop doesn't keep traversing once it's found
+			}
+		}
+	}
+	
+	cout << "Contact could not be found." << endl;
 }
 
 /*
@@ -247,14 +261,12 @@ void pdirectory::findContact(string inName)
                 cout << "Name   : "<< (*hashTable[index])[i].name << endl;
                 cout << "Phone  : "<< (*hashTable[index])[i].phone << endl;
                 cout << "Email  : "<< (*hashTable[index])[i].email << endl;
-				found = true;
+				return; //So the for loop doesn't keep traversing once it's found
 			}
 		}
 	}
-	if (found == false)
-	{
-		cout << "Contact could not be found." << endl;
-	}
+	
+	cout << "Contact could not be found." << endl;
 }
 
 /*
@@ -339,9 +351,9 @@ Function prototype:
 void pdirectory::exportDirectory()
 
 Function description:
-This function when called will create a file that contains all the
+This function when called will create a file that contains all the 
 new and updated contacts.  It will write to a file named
-"UpdatedDirectory.txt" with all the contacts in the hashTable
+"UpdatedDirectory.txt" with all the contacts in the hashTable 
 at the time the function is called.
 
 Example:
@@ -352,7 +364,7 @@ Pre-conditions:
 HashTable containing either some contents or no contents at all.
 
 Post-conditions:
-If the hashTable is empty the function will alert the user with a
+If the hashTable is empty the function will alert the user with a 
 message saying there were no contacts found in the directory.
 If the hashTable has contents then the contents will be copied to an
 outfile similar to the formatting of the imported file
@@ -370,12 +382,17 @@ void pdirectory::exportDirectory()
         {
             for (int j = 0; j < hashTable[i]->size(); j++)
             {
-                //outfile >> (*hashTable[i])[j].name >> "," >> (*hashTable[i])[j].phone >> "," >> (*hashTable[i])[j].email << endl;
-                empty = false;
+				//The arrows were just going the wrong way
+				//Since you're putting into the fille it's like output
+                outfile << (*hashTable[i])[j].name << "," << (*hashTable[i])[j].phone << "," << (*hashTable[i])[j].email << endl;
             }
+            
+            empty = false;
         }
     }
     if (empty == true)
+    {
 		cout << "No contacts found in the directory." << endl;
+	}
 	outfile.close();
 }
