@@ -1,7 +1,7 @@
 /* Author: Zach Kuzma, Chuan 'Nelson' Khor
  * Final Project
  * Instructor: Hoenigman
- * References:
+ * References: HashTable.cpp
  * Description: Class File
  */
 
@@ -13,7 +13,7 @@
 
 using namespace std;
 
-/*
+/*=============================================================================
 Function prototype:
 pdirectory::pdirectory()
 
@@ -26,13 +26,14 @@ pdirectory directory = new pdirectory();
 Pre-condition: None
 
 Post-condition: Construction of the class pdirectory
-*/
+=============================================================================*/
 pdirectory::pdirectory()
 {
 	//constructor
 }
 
-/*
+
+/*=============================================================================
 Function prototype:
 pdirectory::~pdirectory()
 
@@ -49,7 +50,7 @@ that need to be deleted when the program ends.
 
 Post-condition: The memory will be deleted and freed after the program
 has ended.
-*/
+=============================================================================*/
 pdirectory::~pdirectory()
 {
 	//destructor
@@ -62,7 +63,8 @@ pdirectory::~pdirectory()
 	}
 }
 
-/*
+
+/*=============================================================================
 Function prototype:
 void pdirectory::insertContact(string name, string num, string email)
 
@@ -84,7 +86,7 @@ for every index to begin.
 
 Post-condition: The hashtable vector contains the contacts imported
 and/or added to the hashtable.
-*/
+=============================================================================*/
 void pdirectory::insertContact(string name, string num, string email)
 {
 	//insert contact function
@@ -121,7 +123,8 @@ void pdirectory::insertContact(string name, string num, string email)
 	}
 }
 
-/*
+
+/*=============================================================================
 Function prototype:
 void pdirectory::deleteContact(std::string inName)
 
@@ -142,7 +145,7 @@ the name of the contact. The only input is a name in order to find the
 desired contact to delete.
 
 Post-condition: Contact deleted from the vector and memory is freed.
-*/
+=============================================================================*/
 void pdirectory::deleteContact(std::string inName)
 {
 	int index = hashFun(inName,hashSize);
@@ -163,16 +166,17 @@ void pdirectory::deleteContact(std::string inName)
 					delete hashTable[index];
 					hashTable[index] = NULL;
 				}
-				
+
 				return; //So it exits the function once its deleted the contact
 			}
 		}
 	}
-	
+
 	cout << "Contact could not be found." << endl;
 }
 
-/*
+
+/*=============================================================================
 Function prototype:
 void pdirectory::editContact(string)
 
@@ -187,7 +191,7 @@ in recalculating the hash code and relocating the contact. The menu for
 editing will keep showing until the user is happy with the result.
 
 Example:
-editContact("Amy") 
+editContact("Amy")
 
 Pre-conditions:
 InName is the valid ASCII string and the desired contact that need to be edited
@@ -196,7 +200,7 @@ Post-conditions:
 Print/cout the name, phone number, and the email of the newly edited.
 If the desired contact is not in the directory, it will display the contact
 couldn't be found.
-*/
+=============================================================================*/
 void pdirectory::editContact(string name, string num, string email, string newname)
 {
 	int index = hashFun(name,hashSize);
@@ -217,11 +221,12 @@ void pdirectory::editContact(string name, string num, string email, string newna
 			}
 		}
 	}
-	
+
 	cout << "Contact could not be found." << endl;
 }
 
-/*
+
+/*=============================================================================
 Function prototype:
 void pdirectory::findContact(string)
 
@@ -244,7 +249,7 @@ Post-conditions:
 Print/cout the name, phone number, and the email of the found contact.
 If the contact is not in the directory, it will display the contact
 couldn't be found.
-*/
+=============================================================================*/
 void pdirectory::findContact(string inName)
 {
 	int index = hashFun(inName,hashSize);
@@ -266,11 +271,12 @@ void pdirectory::findContact(string inName)
 			}
 		}
 	}
-	
+
 	cout << "Contact could not be found." << endl;
 }
 
-/*
+
+/*=============================================================================
 Function prototype:
 void pdirectory::printDirectory()
 
@@ -289,7 +295,7 @@ No input values needed. A vector with saved contacts.
 Post-conditions:
 Print/cout all the names, phone numbers, and the emails.
 If it has no contact, it will display no contact found.
-*/
+=============================================================================*/
 void pdirectory::printDirectory()
 {
 	// Print all the contacts in the directory
@@ -315,7 +321,8 @@ void pdirectory::printDirectory()
 		cout << "No contact found in the directory." << endl;
 }
 
-/*
+
+/*=============================================================================
 Function prototype:
 int pdirectory::hashFun(string, int)
 
@@ -333,7 +340,7 @@ InName is the valid ASCII string. Integer of hashSize is > 0.
 
 Post-conditions:
 Returns a positive integer.
-*/
+=============================================================================*/
 int pdirectory::hashFun(std::string inName, int hashSize)
 {
 	// Hash Sum function for the contact's name
@@ -347,14 +354,15 @@ int pdirectory::hashFun(std::string inName, int hashSize)
     return theSum;
 }
 
-/*
+
+/*=============================================================================
 Function prototype:
 void pdirectory::exportDirectory()
 
 Function description:
-This function when called will create a file that contains all the 
+This function when called will create a file that contains all the
 new and updated contacts.  It will write to a file named
-"UpdatedDirectory.txt" with all the contacts in the hashTable 
+"UpdatedDirectory.txt" with all the contacts in the hashTable
 at the time the function is called.
 
 Example:
@@ -365,11 +373,11 @@ Pre-conditions:
 HashTable containing either some contents or no contents at all.
 
 Post-conditions:
-If the hashTable is empty the function will alert the user with a 
+If the hashTable is empty the function will alert the user with a
 message saying there were no contacts found in the directory.
 If the hashTable has contents then the contents will be copied to an
 outfile similar to the formatting of the imported file
-*/
+=============================================================================*/
 void pdirectory::exportDirectory()
 {
 	//function to create a new text file with the updated directory
@@ -387,7 +395,7 @@ void pdirectory::exportDirectory()
 				//Since you're putting into the fille it's like output
                 outfile << (*hashTable[i])[j].name << "," << (*hashTable[i])[j].phone << "," << (*hashTable[i])[j].email << endl;
             }
-            
+
             empty = false;
         }
     }
@@ -396,4 +404,26 @@ void pdirectory::exportDirectory()
 		cout << "No contacts found in the directory." << endl;
 	}
 	outfile.close();
+}
+
+
+/*=============================================================================
+Function prototype:
+void pdirectory::clearScreen()
+
+Function description:
+This function when called will clear the terminal screen.
+
+Example:
+clearScreen()
+
+Pre-conditions:
+Not applicable
+
+Post-conditions:
+The terminal screen is cleared.
+=============================================================================*/
+void pdirectory::clearScreen()
+{
+    cout << "\033[2J\033[;H";
 }

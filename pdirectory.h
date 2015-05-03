@@ -1,7 +1,7 @@
 /* Author: Zach Kuzma, Chuan 'Nelson' Khor
  * Final Project
  * Instructor: Hoenigman
- * References:
+ * References: HashTable.h
  * Description: Header File
  */
 
@@ -36,6 +36,7 @@ class pdirectory
         void printDirectory();
         int hashFun(std::string inName, int hashSize); // Create a hash sum function for this project
         void exportDirectory();
+        void clearScreen();
     private:
         int hashSize = 10;
         std::vector<Contact> *hashTable[10] = { NULL };

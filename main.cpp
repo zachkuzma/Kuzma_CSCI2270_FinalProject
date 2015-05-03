@@ -1,7 +1,7 @@
 /* Author: Zach Kuzma, Chuan 'Nelson' Khor
  * Final Project
  * Instructor: Hoenigman
- * References:
+ * References: Assignment9.cpp
  * Description: Main.cpp File
  */
 
@@ -9,7 +9,7 @@
  #include <fstream>
  #include <string>
  #include <sstream>
- #include <stdlib.h> 
+ #include <stdlib.h>
  #include <vector>
  #include "pdirectory.h"
 
@@ -23,9 +23,9 @@
 	string line = argv[1];
 	ifstream in;
 	in.open(line);
-	
+
 	pdirectory directory;
-	
+
 	//creation of directory
 	while(getline(in, line))
 	{
@@ -36,18 +36,16 @@
 		getline(iss, number, ',');
 		string email;
 		getline(iss, email);
-		
+
 		directory.insertContact(name, number, email);
 	}
-	
-	//directory.insertContact("Zach Kuzma", "7192099009", "zach@4343yahoo.com");
-	 
+
      // Initialize a variable for user's command
      int userInput;
 
      // Flag for existing menu
      bool quit = false;
-     
+
      //Input variables
      string input1;
      string input2;
@@ -65,11 +63,13 @@
          switch(userInput)
          {
             case 1: // Print the phone directory
+                directory.clearScreen();
 				directory.printDirectory();
                 break;
             case 2: // Find contact
 				cout << "Enter Full Name of Contact: " << endl;
 				getline(cin,input1);
+				directory.clearScreen();
 				directory.findContact(input1);
                 break;
             case 3: // New contact
@@ -95,14 +95,16 @@
             case 5: // Delete contact
 				cout << "Enter Full Name of Contact: " << endl;
 				getline(cin,input1);
-				directory.deleteContact(input1); 
+				directory.deleteContact(input1);
                 break;
             case 6: // Export current contact
 				directory.exportDirectory();
+				cout << "Contacts exported." << endl;
                 break;
             case 7: // Quit
                 cout << " " << endl;
                 cout << "Closing Directory. See you again!" << endl;
+                cout << " " << endl;
                 quit = true;
                 break;
 
